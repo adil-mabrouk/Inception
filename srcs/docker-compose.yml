@@ -1,0 +1,87 @@
+# version: 'version'
+
+services:
+  # nginx:
+  #   container_name: mariadb
+  #   build: requirements/nginx/
+  #   ports:
+  #     - "443:443"
+  #   volumes:
+  #     - wordpress:/var/www/html
+  #   networks:
+  #     - amabrouk-network
+  #   depends_on:
+  #     - wordpress
+  #   restart: always
+  #   env_file:
+  #     - .env
+  
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress/
+    environment:
+      - DOMAINE_NAME="domaine_name"
+      - DB_HOST="mariadb"
+      - DATABASE_NAME="db_name"
+      - DB_USER="user"
+      - DB_PASSWORD="password"
+      - DB_ROOT_PASSWORD="root_password"
+      - WP_USER="wp_user"
+      - WP_PASSWORD="wp_password"
+      - WP_EMAIL="wp_email"
+      - WP_TITLE="wp_title"
+      - WP_ADMIN_USER="admin"
+      - WP_ADMIN_PASSWORD="admin_password"
+      - WP_ADMIN_EMAIL="admin_email"
+    ports:
+        - "9000:9000"
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - amabrouk-network
+    depends_on:
+      - mariadb
+    restart: always
+
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb/
+    environment:
+      - DOMAINE_NAME="domaine_name"
+      - DB_HOST="mariadb"
+      - DATABASE_NAME="db_name"
+      - DB_USER="user"
+      - DB_PASSWORD="password"
+      - DB_ROOT_PASSWORD="root_password"
+      - WP_USER="wp_user"
+      - WP_PASSWORD="wp_password"
+      - WP_EMAIL="wp_email"
+      - WP_TITLE="wp_title"
+      - WP_ADMIN_USER="admin"
+      - WP_ADMIN_PASSWORD="admin_password"
+      - WP_ADMIN_EMAIL="admin_email"
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - amabrouk-network
+    restart: always
+
+volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/adil_unix/inception/data/wordpress
+      o: bind
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/adil_unix/inception/data/mariadb
+      o: bind
+
+networks:
+  amabrouk-network:
+    driver: bridge
