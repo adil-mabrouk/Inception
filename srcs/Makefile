@@ -6,6 +6,7 @@ all:
 
 fclean:
 	@docker compose -f docker-compose.yml down -v
-	@rm -rf mariadb/* wordpress/*
-	# @docker system prune -a -f
-	# @docker volume prune -f
+	@rm -rf /Users/amabrouk/Desktop/data/mariadb
+	@rm -rf /Users/amabrouk/Desktop/data/wordpress
+	@docker system prune -a -f
+	@docker volume prune -f

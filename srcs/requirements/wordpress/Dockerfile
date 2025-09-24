@@ -2,6 +2,8 @@ FROM debian:bullseye
  
 RUN apt update -y && apt install -y php php-fpm php-mysql curl
 
+WORKDIR /var/www/html/
+
 COPY /script.sh /script.sh
 
 RUN chmod +x /script.sh
