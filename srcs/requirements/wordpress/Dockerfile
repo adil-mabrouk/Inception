@@ -1,6 +1,7 @@
-FROM debian:bullseye
+FROM debian:bookworm
  
-RUN apt update -y && apt install -y php php-fpm php-mysql curl
+RUN apt update -y && apt install -y php php-fpm php-mysql curl \
+	&& rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
 
@@ -12,4 +13,4 @@ RUN mkdir -p /run/php
 
 ENTRYPOINT ["./script.sh"]
 
-CMD ["php-fpm7.4", "-F"]
+CMD ["php-fpm8.2", "-F"]

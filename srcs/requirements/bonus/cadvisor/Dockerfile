@@ -1,10 +1,13 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
+RUN apt update -y && \
+    apt install -y wget && \
+    wget https://github.com/google/cadvisor/releases/download/v0.53.0/cadvisor-v0.53.0-linux-amd64 -O /usr/local/bin/cadvisor && \
+    chmod +x /usr/local/bin/cadvisor && \
+    apt remove -y wget && \
+    apt autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt update -y
-RUN apt install wget -y
-
-RUN wget https://github.com/google/cadvisor/releases/download/v0.47.0/cadvisor-v0.47.0-linux-amd64 -O /usr/local/bin/cadvisor \
-    && chmod +x /usr/local/bin/cadvisor
+EXPOSE 8080
 
 CMD ["/usr/local/bin/cadvisor", "-logtostderr", "--port=8080"]

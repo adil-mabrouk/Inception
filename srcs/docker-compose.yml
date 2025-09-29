@@ -72,11 +72,20 @@ services:
   #   container_name: adminer
   #   build: requirements/bonus/adminer/
   #   ports:
-  #     - "2005:2005"
+  #     - "8090:8090"
   #   networks:
   #     - amabrouk-network
   #   depends_on:
   #     - mariadb
+  #   restart: always
+
+  # static-site:
+  #   container_name: static-site
+  #   build: requirements/bonus/static-site/
+  #   ports:
+  #     - "2005:2005"
+  #   networks:
+  #     - amabrouk-network
   #   restart: always
 
   cadvisor:
@@ -92,11 +101,6 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
-    # volumes:
-    #   - /:/rootfs:ro
-    #   - /var/run:/var/run:ro 
-    #   - /sys:/sys:ro 
-    #   - /var/lib/docker/:/var/lib/docker:ro
     restart: always
 
 volumes:
@@ -105,14 +109,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/adil_unix/Inception/data/wordpress
+      device: /Users/amabrouk/Desktop/Inception/data/wordpress
       o: bind
   mariadb:
     name: mariadb
     driver: local
     driver_opts:
       type: none
-      device: /home/adil_unix/Inception/data/mariadb
+      device: /Users/amabrouk/Desktop/Inception/data/mariadb
       o: bind
 
 networks:

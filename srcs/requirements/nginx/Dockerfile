@@ -1,6 +1,7 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
-RUN apt update && apt install -y openssl nginx
+RUN apt update && apt install -y openssl nginx \
+	&& rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /etc/nginx/ssl
 
 RUN openssl req -x509 -newkey rsa:4096 \

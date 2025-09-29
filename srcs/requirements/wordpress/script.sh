@@ -19,7 +19,7 @@ echo "Starting WordPress setup..."
 mkdir -p $HTML_FOLDER
 echo "Created HTML folder: $HTML_FOLDER"
 
-sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/" /etc/php/7.4/fpm/pool.d/www.conf
+sed -i "s/listen = \/run\/php\/php8.2-fpm.sock/listen = 9000/" /etc/php/8.2/fpm/pool.d/www.conf
 check_command "PHP-FPM configuration"
 
 cd $HTML_FOLDER
