@@ -41,20 +41,78 @@ services:
     env_file:
       - .env
 
+  redis:
+    container_name: redis
+    build: requirements/bonus/redis/
+    networks:
+      - amabrouk-network
+    depends_on:
+      - wordpress
+    restart: always
+    env_file:
+      - .env
+
+  ftp:
+    container_name: ftp
+    build: requirements/bonus/ftp/
+    ports:
+      - "21:21"
+      - "3000-3009:3000-3009"
+    volumes:
+      - wordpress:/home/${FTP_USER}/wordpress
+    networks:
+      - amabrouk-network
+    depends_on:
+      - wordpress
+    restart: always
+    env_file:
+      - .env
+
+  # adminer:
+  #   container_name: adminer
+  #   build: requirements/bonus/adminer/
+  #   ports:
+  #     - "2005:2005"
+  #   networks:
+  #     - amabrouk-network
+  #   depends_on:
+  #     - mariadb
+  #   restart: always
+
+  cadvisor:
+    container_name: cadvisor
+    build: ./requirements/bonus/cadvisor/
+    ports:
+      - "8080:8080"
+    networks:
+      - amabrouk-network
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    # volumes:
+    #   - /:/rootfs:ro
+    #   - /var/run:/var/run:ro 
+    #   - /sys:/sys:ro 
+    #   - /var/lib/docker/:/var/lib/docker:ro
+    restart: always
+
 volumes:
   wordpress:
     name: wordpress
     driver: local
     driver_opts:
       type: none
-      device: /Users/amabrouk/Desktop/data/wordpress
+      device: /home/adil_unix/Inception/data/wordpress
       o: bind
   mariadb:
     name: mariadb
     driver: local
     driver_opts:
       type: none
-      device: /Users/amabrouk/Desktop/data/mariadb
+      device: /home/adil_unix/Inception/data/mariadb
       o: bind
 
 networks:

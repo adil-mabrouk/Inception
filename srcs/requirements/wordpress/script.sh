@@ -114,13 +114,11 @@ else
     echo "WordPress installation verification failed"
     exit 1
 fi
-
-# Set proper permissions
-# echo "Setting file permissions..."
-# chown -R www-data:www-data /var/www/html
-# find /var/www/html -type d -exec chmod 755 {} \;
-# find /var/www/html -type f -exec chmod 644 {} \;
-# check_command "File permissions setup"
-
 echo "Starting PHP-FPM..."
+
+wp plugin install redis-cache --activate --allow-root
+wp config set WP_REDIS_HOST "'$WP_REDIS_HOST'" --raw --allow-root
+wp config set WP_REDIS_PORT $WP_REDIS_PORT --raw --allow-root
+wp redis enable --allow-root
+
 exec "$@"
