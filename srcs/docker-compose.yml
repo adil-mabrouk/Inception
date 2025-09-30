@@ -68,16 +68,18 @@ services:
     env_file:
       - .env
 
-  # adminer:
-  #   container_name: adminer
-  #   build: requirements/bonus/adminer/
-  #   ports:
-  #     - "8090:8090"
-  #   networks:
-  #     - amabrouk-network
-  #   depends_on:
-  #     - mariadb
-  #   restart: always
+  adminer:
+    container_name: adminer
+    build: requirements/bonus/adminer/
+    ports:
+      - "8090:8090"
+    volumes:
+    - wordpress:/var/www/html 
+    networks:
+      - amabrouk-network
+    depends_on:
+      - mariadb
+    restart: always
 
   # static-site:
   #   container_name: static-site
@@ -88,20 +90,20 @@ services:
   #     - amabrouk-network
   #   restart: always
 
-  cadvisor:
-    container_name: cadvisor
-    build: ./requirements/bonus/cadvisor/
-    ports:
-      - "8080:8080"
-    networks:
-      - amabrouk-network
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
-    restart: always
+  # cadvisor:
+  #   container_name: cadvisor
+  #   build: ./requirements/bonus/cadvisor/
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - amabrouk-network
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:ro
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #     - /dev/disk/:/dev/disk:ro
+  #   restart: always
 
 volumes:
   wordpress:

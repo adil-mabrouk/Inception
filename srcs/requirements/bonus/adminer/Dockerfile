@@ -1,7 +1,8 @@
 FROM debian:bookworm
 
 RUN apt update && apt install -y \
-	php \
+	php8.2 \
+	php8.2-fpm \
 	php-mysql \
 	wget \
 	&& rm -rf /var/lib/apt/lists/*
