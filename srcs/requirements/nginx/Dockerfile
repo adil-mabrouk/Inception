@@ -11,6 +11,4 @@ RUN openssl req -x509 -newkey rsa:4096 \
 
 COPY nginx.conf /etc/nginx/sites-available/default
 
-RUN echo 'Hello from Nginx in Docker' > /var/www/html/index.html
-
 CMD ["nginx" ,"-g" ,"daemon off;"]

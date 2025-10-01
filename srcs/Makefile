@@ -10,3 +10,5 @@ fclean:
 	@rm -rf /Users/amabrouk/Desktop/Inception/data/wordpress
 	@docker system prune -a -f
 	@docker volume prune -f
+
+re: fclean all

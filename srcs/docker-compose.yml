@@ -57,7 +57,7 @@ services:
     build: requirements/bonus/ftp/
     ports:
       - "21:21"
-      - "3000-3009:3000-3009"
+      - "3000-3004:3000-3004"
     volumes:
       - wordpress:/home/${FTP_USER}/wordpress
     networks:
@@ -74,36 +74,41 @@ services:
     ports:
       - "8090:8090"
     volumes:
-    - wordpress:/var/www/html 
+      - wordpress:/var/www/html
     networks:
       - amabrouk-network
     depends_on:
       - mariadb
     restart: always
 
-  # static-site:
-  #   container_name: static-site
-  #   build: requirements/bonus/static-site/
-  #   ports:
-  #     - "2005:2005"
-  #   networks:
-  #     - amabrouk-network
-  #   restart: always
+  website :
+    container_name : website
+    build :
+      ./requirements/bonus/website
+    ports:
+      - "2005:2005"
+    env_file :
+      - .env
+    volumes :
+      - wordpress:/var/www/html
+    networks :
+      - amabrouk-network
+    restart : always
 
-  # cadvisor:
-  #   container_name: cadvisor
-  #   build: ./requirements/bonus/cadvisor/
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - amabrouk-network
-  #   volumes:
-  #     - /:/rootfs:ro
-  #     - /var/run:/var/run:ro
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
-  #     - /dev/disk/:/dev/disk:ro
-  #   restart: always
+  cadvisor:
+    container_name: cadvisor
+    build: ./requirements/bonus/cadvisor/
+    ports:
+      - "8080:8080"
+    networks:
+      - amabrouk-network
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    restart: always
 
 volumes:
   wordpress:

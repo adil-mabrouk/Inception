@@ -8,6 +8,7 @@ RUN apt update -y && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
+# Maybe No need to expose port here 
 EXPOSE 8080
 
 CMD ["/usr/local/bin/cadvisor", "-logtostderr", "--port=8080"]

@@ -6,10 +6,10 @@ RUN apt update && \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY 50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY script.sh /script.sh
+COPY crip.sh /crip.sh
 
-RUN chmod +x /script.sh
+RUN chmod +x /crip.sh
 
-ENTRYPOINT [ "/script.sh" ]
+ENTRYPOINT [ "/crip.sh" ]
 
 CMD [ "mysqld_safe" ]
