@@ -116,9 +116,9 @@ else
 fi
 echo "Starting PHP-FPM..."
 
-# wp plugin install redis-cache --activate --allow-root
-# wp config set WP_REDIS_HOST "'$WP_REDIS_HOST'" --raw --allow-root
-# wp config set WP_REDIS_PORT $WP_REDIS_PORT --raw --allow-root
-# wp redis enable --allow-root
+wp plugin install redis-cache --activate --allow-root
+wp config set WP_REDIS_HOST "'$WP_REDIS_HOST'" --raw --allow-root
+wp config set WP_REDIS_PORT $WP_REDIS_PORT --raw --allow-root
+wp redis enable --allow-root
 
 exec "$@"

@@ -1,6 +1,9 @@
 FROM debian:bookworm
- 
-RUN apt update -y && apt install -y php php-fpm php-mysql curl \
+
+RUN apt-get update && apt-get install -y php8.2 \
+	php8.2-fpm \
+	php8.2-mysql \
+	curl \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./script.sh ./script.sh

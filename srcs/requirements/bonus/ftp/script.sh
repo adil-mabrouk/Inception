@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p /var/run/vsftpd/empty
+
 # Create FTP user and set password
 useradd -m -d /var/www/html -s /bin/bash $FTP_USER
 echo "$FTP_USER:$FTP_PASS" | chpasswd
@@ -8,4 +10,4 @@ echo "$FTP_USER:$FTP_PASS" | chpasswd
 chown -R $FTP_USER:$FTP_USER /var/www/html
 
 # Start vsftpd
-/usr/sbin/vsftpd /etc/vsftpd.conf
+exec /usr/sbin/vsftpd /etc/vsftpd.conf

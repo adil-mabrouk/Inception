@@ -8,4 +8,4 @@ wget "https://raw.githubusercontent.com/Niyko/Hydra-Dark-Theme-for-Adminer/maste
 
 sed -i 's/^listen = .*/listen = 8090/' /etc/php/8.2/fpm/pool.d/www.conf
 
-/usr/sbin/php-fpm8.2 -F
+exec /usr/sbin/php-fpm8.2 -F
